@@ -5,8 +5,7 @@ const logger = require('morgan')
 
 const expressJwt = require('express-jwt')
 
-// const usersRouter = require('./routes/users')
-const authRouter = require('./src/auth/routes')
+const authRouter = require('./src/routes/auth')
 
 const app = express()
 

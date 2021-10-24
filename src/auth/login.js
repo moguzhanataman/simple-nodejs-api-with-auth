@@ -1,17 +1,6 @@
 const jwt = require('jsonwebtoken')
-// mock before MongoDB integration
-const users = [
-  {
-    username: 'oguzhan',
-    password: 'pw123',
-  },
-  {
-    username: 'other',
-    password: 'pass',
-  },
-]
-
-const accessTokenSecret = 'youraccesstokensecret'
+const { generateJwtToken } = require('../utils/token')
+const { users } = require('./users.db')
 
 function login(username, password) {
   // Filter user from the users array by username and password
@@ -20,13 +9,7 @@ function login(username, password) {
   })
 
   if (user) {
-    // Generate an access token
-    const token = jwt.sign(
-      { username: user.username, role: user.role },
-      accessTokenSecret
-    )
-
-    return token
+    return generateJwtToken(user)
   }
 
   return null
