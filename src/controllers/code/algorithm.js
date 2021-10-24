@@ -48,4 +48,13 @@ function swapAlgorithm(input) {
   return result
 }
 
-module.exports = swapAlgorithm
+function codeHandler(firstname, lastname) {
+  try {
+    const code = swapAlgorithm(firstname + lastname)
+    return { code }
+  } catch (err) {
+    return { error: err.message }
+  }
+}
+
+module.exports = { swapAlgorithm, codeHandler }

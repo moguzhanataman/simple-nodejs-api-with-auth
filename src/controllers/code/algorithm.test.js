@@ -1,4 +1,4 @@
-const swapAlgorithm = require('./algorithm')
+const { swapAlgorithm } = require('./algorithm')
 
 describe('Algorithm test', () => {
   test('for judystone', () => {
