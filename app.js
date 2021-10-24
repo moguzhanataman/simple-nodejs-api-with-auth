@@ -13,6 +13,9 @@ const { requireAuth } = require('./src/utils/token')
 
 const app = express()
 
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost:27017/4dsight')
+
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
