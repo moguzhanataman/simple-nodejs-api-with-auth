@@ -6,23 +6,23 @@ const signup = require('../controllers/auth/signup')
 const { requireAuth } = require('../utils/token')
 
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body
+  const { email, password } = req.body
 
-  const token = await login(username, password)
+  const token = await login(email, password)
   if (token) {
     return res.json({
       token,
     })
   }
 
-  res.status(401).json({ error: 'Username or password incorrect' })
+  res.status(401).json({ error: 'Email or password incorrect' })
 })
 
 router.post('/signup', async (req, res) => {
-  const { email, username, password } = req.body
+  const { email, password, firstname, lastname } = req.body
   let result
   try {
-    result = await signup(email, username, password)
+    result = await signup(email, firstname, lastname, password)
     console.log('result', result)
 
     req.app.get('mailer').emit('signup', { email })
@@ -35,8 +35,8 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/logout', requireAuth, async (req, res) => {
-  const { username } = req.tokenData
-  await logout(username)
+  const { email } = req.tokenData
+  await logout(email)
   res.json({ success: true })
 })
 

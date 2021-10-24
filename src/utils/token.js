@@ -5,10 +5,7 @@ const User = require('../models/User')
 const accessTokenSecret = 'youraccesstokensecret'
 
 function generateJwtToken(user) {
-  return jwt.sign(
-    { username: user.username, email: user.email },
-    accessTokenSecret
-  )
+  return jwt.sign({ ...user }, accessTokenSecret)
 }
 
 function requireAuth(req, res, next) {
@@ -25,7 +22,7 @@ function requireAuth(req, res, next) {
       return res.status(403).json({ error: 'Invalid token' })
     }
 
-    const user = await User.findOne({ username: tokenData.username })
+    const user = await User.findOne({ email: tokenData.email })
     if (user.lastTokenIssuedAt > tokenData.iat) {
       console.log('lastTokenIat', user.lastTokenIssuedAt)
       console.log('token iat', tokenData.iat)

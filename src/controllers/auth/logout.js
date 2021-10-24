@@ -1,10 +1,9 @@
 const User = require('../../models/User')
 const { updateLastTokenIssuedAt } = require('../../utils/token')
 
-async function logout(username) {
-  // await User.findOne({ username })
+async function logout(email) {
   const user = await User.findOneAndUpdate(
-    { username },
+    { email },
     {
       lastTokenIssuedAt: updateLastTokenIssuedAt(),
     },

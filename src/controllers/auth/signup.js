@@ -4,11 +4,12 @@ const {
 } = require('../../utils/token')
 const User = require('../../models/User')
 
-async function signup(email, username, password) {
+async function signup(email, firstname, lastname, password) {
   try {
     const user = new User({
       email,
-      username,
+      firstname,
+      lastname,
       password,
       lastTokenIssuedAt: updateLastTokenIssuedAt(),
     })

@@ -4,14 +4,13 @@ const {
   updateLastTokenIssuedAt,
 } = require('../../utils/token')
 const User = require('../../models/User')
-async function login(username, password) {
-  // Filter user from the users array by username and password
-  const user = await User.findOne({ username, password })
+async function login(email, password) {
+  const user = await User.findOne({ email, password })
   console.log(user)
 
   let token
   if (user) {
-    token = generateJwtToken(user)
+    token = generateJwtToken(user.toJSON())
     await user.updateOne({ lastTokenIssuedAt: updateLastTokenIssuedAt() })
     return token
   }
