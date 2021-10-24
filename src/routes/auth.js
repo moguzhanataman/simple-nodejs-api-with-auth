@@ -3,10 +3,10 @@ const router = express.Router()
 const login = require('../controllers/auth/login')
 const signup = require('../controllers/auth/signup')
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body
 
-  const token = login(username, password)
+  const token = await login(username, password)
   if (token) {
     return res.json({
       token,

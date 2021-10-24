@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   email: { type: String, unique: true },
   username: { type: String, unique: true },
-  password: String,
+  password: { type: String, select: false },
+  lastTokenIssuedAt: { type: Number }, // instead of blacklisting, I decided to store last token issued at field to simplify implementation
 })
 
 module.exports = mongoose.model('User', UserSchema)
