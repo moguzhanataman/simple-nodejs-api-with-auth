@@ -3,9 +3,9 @@ const Schema = mongoose.Schema
 
 // TODO: hash password
 const UserSchema = new Schema({
-  email: String,
-  username: String,
+  email: { type: String, unique: true },
+  username: { type: String, unique: true },
   password: String,
 })
 
-module.exports = mongoose.Model('UserModel', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

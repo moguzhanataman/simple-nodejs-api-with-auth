@@ -16,16 +16,17 @@ router.post('/login', (req, res) => {
   res.status(401).json({ error: 'Username or password incorrect' })
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
   const { email, username, password } = req.body
   let result
   try {
-    result = signup(email, username, password)
+    result = await signup(email, username, password)
+    console.log('result', result)
     // TODO send response with token
     res.json(result)
-  } catch (err) {
-    console.error(err)
-    res.status(409).json({ error: err.message })
+  } catch (error) {
+    console.error(error)
+    res.status(409).json({ error })
   }
 })
 

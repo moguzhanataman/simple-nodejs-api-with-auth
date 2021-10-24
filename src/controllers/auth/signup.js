@@ -1,24 +1,34 @@
 const { generateJwtToken } = require('../../utils/token')
 const { users } = require('./users.db')
+const User = require('../../models/user')
 
-function signup(email, username, password) {
+async function signup(email, username, password) {
   // TODO: Db call
   // TODO: send mail
   // TODO: return JWT
-  const isUsernameTaken = users.find((user) => user.username === username)
-  if (isUsernameTaken) {
-    throw new Error('Username is taken')
+
+  // const userModel = await User.findOne({ $or: [{ username }, { email }] })
+  // const isUsernameTaken = users.find((user) => user.username === username)
+
+  // if (isUsernameTaken) {
+  //   throw new Error('Username is taken')
+  // }
+
+  // // const isEmailTaken = users.find((user) => user.email === email)
+  // if (isEmailTaken) {
+  //   throw new Error('Email is taken')
+  // }
+
+  try {
+    const user = new User({ email, username, password })
+    await user.save()
+
+    return { token: generateJwtToken(user.toObject()) }
+  } catch (err) {
+    console.error(err.message)
+    const errorCause = Object.keys(err.keyPattern)
+    return { error: `${errorCause} already exists` }
   }
-
-  const isEmailTaken = users.find((user) => user.email === email)
-  if (isEmailTaken) {
-    throw new Error('Email is taken')
-  }
-
-  const user = { email, username, password }
-  users.push(user)
-
-  return { token: generateJwtToken(user) }
 }
 
 module.exports = signup
