@@ -1,5 +1,17 @@
 # Case Study for 4dsight
 
+## User Authentication System
+
+Using the Nodejs/Express library and the MongoDB database, create a membership system that hosts the following Rest Api endpoints of an application.
+
+### Requirements
+
+- Node.js/Express
+- MongoDB
+- JSON Web Token
+- RESTful
+- Event-Driven Programming
+
 ## Endpoints
 
 ---
