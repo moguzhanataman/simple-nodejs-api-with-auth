@@ -25,6 +25,14 @@ Output:
 }
 ```
 
+Email exists:
+
+```json
+{
+  "error": "email already exists"
+}
+```
+
 ---
 
 ### POST /login
@@ -43,6 +51,14 @@ Output:
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTc1OTlmZjIxZWY1MzQxMWQyNmQ2ZmYiLCJlbWFpbCI6Im9ndXpoYW5AZXhhbXBsZS5jb20iLCJmaXJzdG5hbWUiOiJiIiwibGFzdG5hbWUiOiJhIiwibGFzdFRva2VuSXNzdWVkQXQiOjE2MzUwOTk0NzAsIl9fdiI6MCwiaWF0IjoxNjM1MDk5NDg2fQ.zHC4L-Q1jU9Ndh0vOWIiGljwo5voVSAqB7j5oWGDKB4"
+}
+```
+
+Incorrect login:
+
+```json
+{
+  "error": "Email or password incorrect"
 }
 ```
 
@@ -93,5 +109,15 @@ Output (swapping not possible)
 ```json
 {
   "error": "No swapping possible"
+}
+```
+
+---
+
+### For all endpoints require authentication but user logged out
+
+```json
+{
+  "error": "Token expired"
 }
 ```
