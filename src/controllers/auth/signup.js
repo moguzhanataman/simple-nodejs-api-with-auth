@@ -1,6 +1,8 @@
-const { generateJwtToken } = require('../../utils/token')
-const { users } = require('./users.db')
-const User = require('../../models/user')
+const {
+  generateJwtToken,
+  updateLastTokenIssuedAt,
+} = require('../../utils/token')
+const User = require('../../models/User')
 
 async function signup(email, username, password) {
   // TODO: Db call
@@ -20,7 +22,12 @@ async function signup(email, username, password) {
   // }
 
   try {
-    const user = new User({ email, username, password })
+    const user = new User({
+      email,
+      username,
+      password,
+      lastTokenIssuedAt: updateLastTokenIssuedAt(),
+    })
     await user.save()
 
     return { token: generateJwtToken(user.toObject()) }

@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const login = require('../controllers/auth/login')
+const { logout } = require('../controllers/auth/logout')
 const signup = require('../controllers/auth/signup')
+const { requireAuth } = require('../utils/token')
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body
@@ -30,7 +32,10 @@ router.post('/signup', async (req, res) => {
   }
 })
 
-// TODO: implement black list for tokens, since JWT tokens are stateless there is no way to invalidate a token
-router.get('/logout', (req, res) => {})
+router.post('/logout', requireAuth, async (req, res) => {
+  const { username } = req.tokenData
+  await logout(username)
+  res.json({ success: true })
+})
 
 module.exports = router
