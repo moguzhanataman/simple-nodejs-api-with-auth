@@ -1,9 +1,8 @@
 var express = require('express')
-const { login } = require('../src/auth/login')
+const { login } = require('../auth/login')
 var router = express.Router()
 
 router.post('/login', (req, res) => {
-  // Read username and password from request body
   const { username, password } = req.body
 
   const token = login(username, password)
