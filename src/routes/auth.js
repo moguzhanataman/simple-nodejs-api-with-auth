@@ -24,7 +24,9 @@ router.post('/signup', async (req, res) => {
   try {
     result = await signup(email, username, password)
     console.log('result', result)
-    // TODO send response with token
+
+    req.app.get('mailer').emit('signup', { email })
+
     res.json(result)
   } catch (error) {
     console.error(error)
