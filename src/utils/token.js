@@ -4,10 +4,13 @@ const jwt = require('jsonwebtoken')
 const accessTokenSecret = 'youraccesstokensecret'
 
 function generateJwtToken(user) {
-  return jwt.sign({ username: user.username }, accessTokenSecret)
+  return jwt.sign(
+    { username: user.username, email: user.email },
+    accessTokenSecret
+  )
 }
 
-function authenticateToken(req, res, next) {
+function requireAuth(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
 
@@ -26,4 +29,4 @@ function authenticateToken(req, res, next) {
   })
 }
 
-module.exports = { generateJwtToken, authenticateToken }
+module.exports = { generateJwtToken, requireAuth }

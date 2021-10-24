@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/my-profile', (req, res) => {
+router.get('/', (req, res) => {
   const tokenData = req.tokenData
-  res.json({ username: tokenData.username })
+  res.json({ ...tokenData })
 })
 
 // router.get('/', (req, res) => res.json({}))

@@ -1,4 +1,4 @@
-const { generateJwtToken } = require('../utils/token')
+const { generateJwtToken } = require('../../utils/token')
 const { users } = require('./users.db')
 
 function signup(email, username, password) {

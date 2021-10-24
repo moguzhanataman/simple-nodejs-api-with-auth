@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { generateJwtToken } = require('../utils/token')
+const { generateJwtToken } = require('../../utils/token')
 const { users } = require('./users.db')
 
 function login(username, password) {
