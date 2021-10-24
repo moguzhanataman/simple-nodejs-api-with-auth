@@ -6,6 +6,8 @@ const logger = require('morgan')
 const expressJwt = require('express-jwt')
 
 const authRouter = require('./src/routes/auth')
+const profileRouter = require('./src/routes/profile')
+const { authenticateToken } = require('./src/utils/token')
 
 const app = express()
 
@@ -16,5 +18,6 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', authRouter)
+app.use('/', authenticateToken, profileRouter)
 
 module.exports = app

@@ -1,7 +1,7 @@
-var express = require('express')
+const express = require('express')
+const router = express.Router()
 const login = require('../auth/login')
 const signup = require('../auth/signup')
-var router = express.Router()
 
 router.post('/login', (req, res) => {
   const { username, password } = req.body
@@ -23,5 +23,7 @@ router.post('/signup', (req, res) => {
   // TODO send response with token
   res.json({ token: '123', result })
 })
+
+router.get('/logout', (req, res) => {})
 
 module.exports = router
