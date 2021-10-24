@@ -14,13 +14,13 @@ function authenticateToken(req, res, next) {
   if (token == null)
     return res.status(401).json({ error: 'User is not authorized' })
 
-  jwt.verify(token, accessTokenSecret, (err, user) => {
+  jwt.verify(token, accessTokenSecret, (err, tokenData) => {
     console.log(err)
 
     if (err) return res.status(403).json({ error: 'Invalid token' })
 
-    console.log('user is', user)
-    req.user = user
+    console.log('user is', tokenData)
+    req.tokenData = tokenData
 
     next()
   })

@@ -13,15 +13,20 @@ router.post('/login', (req, res) => {
     })
   }
 
-  res.status(401).send('Username or password incorrect')
+  res.status(401).json({ error: 'Username or password incorrect' })
 })
 
 router.post('/signup', (req, res) => {
   const { email, username, password } = req.body
-  const result = signup(email, username, password)
-
-  // TODO send response with token
-  res.json({ token: '123', result })
+  let result
+  try {
+    result = signup(email, username, password)
+    // TODO send response with token
+    res.json(result)
+  } catch (err) {
+    console.error(err)
+    res.status(409).json({ error: err.message })
+  }
 })
 
 router.get('/logout', (req, res) => {})
